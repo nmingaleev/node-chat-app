@@ -21,15 +21,9 @@ io.on('connection', (socket) => {
 
   socket.broadcast.emit('newMessage', generateMessage("Admin", "New user connected"));
 
-
-  socket.on('createMessage', (message) => {
+  socket.on('createMessage', (message, callback) => {
     io.emit('newMessage', generateMessage(message.from, message.text)); //emits an event to every single connection
-
-    // socket.broadcast.emit('newMessage', {
-    //   from: message.from,
-    //   text: message.text,
-    //   createdAt: new Date().getTime()
-    // });
+    callback('This is from the server.');
   });
 
   socket.on('disconnect', () => {
